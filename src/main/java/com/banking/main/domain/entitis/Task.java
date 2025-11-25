@@ -36,7 +36,7 @@ public class Task {
     private TaskStatus taskStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "task_list_")
+    @JoinColumn(name = "task_list_id")
     private TaskList taskList;
 
     @Column(name = "priority",nullable = false)
@@ -45,7 +45,7 @@ public class Task {
     @Column(name = "created",nullable = false)
     private LocalDateTime created;
 
-    @Column(name = "update",nullable = false)
+    @Column(name = "updated",nullable = false)
     private LocalDateTime updated;
 
     @Override

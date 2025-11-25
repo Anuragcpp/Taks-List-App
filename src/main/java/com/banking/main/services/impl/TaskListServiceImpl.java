@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TaskListServiceImpl implements TaskListService {
@@ -34,5 +36,22 @@ public class TaskListServiceImpl implements TaskListService {
                 now,
                 now
         ));
+    }
+
+    @Override
+    public Optional<TaskList> getTaskList(UUID id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public TaskList updateTaskList(UUID id,TaskList request) {
+        TaskList taskList = repository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("Task list with ID: " + id + " not found")
+        );
+        if(request.getTitle() == null || request.getTitle().isBlank() ) throw new IllegalArgumentException("Task list title must be present!");
+        taskList.setTitle(request.getTitle());
+        if(request.getDescription() != null && !request.getDescription().isBlank()) taskList.setDescription(request.getDescription());
+        taskList.setUpdated(LocalDateTime.now());
+        return repository.save(taskList);
     }
 }
