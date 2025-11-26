@@ -71,4 +71,17 @@ public class TaskListController {
                  taskListMapper.toDto( service.updateTaskList(taskListId, taskListMapper.fromDto( request)))
         ),HttpStatus.OK );
     }
+
+    @DeleteMapping("/{task_list_id}")
+    public ResponseEntity<SuccessResponse> deleteTaskList(@PathVariable(name = "task_list_id") UUID taskListId){
+        service.deleteTaskList(taskListId);
+        return new ResponseEntity<>(
+                new SuccessResponse(
+                        HttpStatus.OK.value(),
+                        "Task list deleted successfully",
+                        null
+                ),
+                HttpStatus.OK
+        );
+    }
 }

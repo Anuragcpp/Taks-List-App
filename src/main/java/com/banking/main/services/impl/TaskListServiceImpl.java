@@ -1,5 +1,6 @@
 package com.banking.main.services.impl;
 
+import com.banking.main.TaskListAppApplication;
 import com.banking.main.domain.entitis.TaskList;
 import com.banking.main.repository.TaskListRepository;
 import com.banking.main.services.TaskListService;
@@ -53,5 +54,13 @@ public class TaskListServiceImpl implements TaskListService {
         if(request.getDescription() != null && !request.getDescription().isBlank()) taskList.setDescription(request.getDescription());
         taskList.setUpdated(LocalDateTime.now());
         return repository.save(taskList);
+    }
+
+    @Override
+    public void deleteTaskList(UUID id) {
+        TaskList taskList = repository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("No task List found with id : " + id)
+        );
+        repository.delete(taskList);
     }
 }
