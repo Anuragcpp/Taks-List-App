@@ -6,6 +6,7 @@ import com.banking.main.repository.TaskListRepository;
 import com.banking.main.services.TaskListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,6 +45,7 @@ public class TaskListServiceImpl implements TaskListService {
         return repository.findById(id);
     }
 
+    @Transactional
     @Override
     public TaskList updateTaskList(UUID id,TaskList request) {
         TaskList taskList = repository.findById(id).orElseThrow(
@@ -56,6 +58,7 @@ public class TaskListServiceImpl implements TaskListService {
         return repository.save(taskList);
     }
 
+    @Transactional
     @Override
     public void deleteTaskList(UUID id) {
         TaskList taskList = repository.findById(id).orElseThrow(
