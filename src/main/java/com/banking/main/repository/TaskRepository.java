@@ -1,0 +1,16 @@
+package com.banking.main.repository;
+
+import com.banking.main.domain.entitis.Task;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+@Repository
+public interface TaskRepository extends JpaRepository<Task, UUID> {
+    List<Task> findByTaskListId(UUID taskListId);
+    Optional<Task> findByTaskListIdAndId(UUID taskListId,UUID id);
+    //void deleteTaskListIdAndId(UUID taskListId,UUID id);
+}
